@@ -1,0 +1,28 @@
+{
+  "name": "whatsappDownloader",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "nachos-ui": "^0.1.2",
+    "react": "16.2.0",
+    "react-native": "0.53.0",
+    "react-native-app-intro": "^1.1.5",
+    "react-navigation": "^1.0.3",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6"
+  },
+  "devDependencies": {
+    "babel-jest": "22.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.2.1",
+    "react-test-renderer": "16.2.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
