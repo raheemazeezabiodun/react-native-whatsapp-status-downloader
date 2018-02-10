@@ -7,20 +7,25 @@
     "test": "jest"
   },
   "dependencies": {
-    "nachos-ui": "^0.1.2",
+    "native-base": "^2.3.8",
     "react": "16.2.0",
     "react-native": "0.53.0",
-    "react-native-app-intro": "^1.1.5",
+    "react-native-app-intro-slider": "^0.2.3",
+    "react-native-fetch-blob": "^0.10.8",
+    "react-native-simple-store": "^1.3.0",
+    "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.3",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-logger": "^3.0.6"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-jest": "22.2.0",
     "babel-preset-react-native": "4.0.0",
     "jest": "22.2.1",
-    "react-test-renderer": "16.2.0"
+    "react-test-renderer": "16.2.0",
+    "redux-logger": "^3.0.6",
+    "remote-redux-devtools": "^0.5.12"
   },
   "jest": {
     "preset": "react-native"

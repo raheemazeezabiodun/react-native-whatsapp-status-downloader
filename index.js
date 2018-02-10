@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from './App';
+import WhatsappDownloader from './App';
 
-AppRegistry.registerComponent('whatsappDownloader', () => App);
+AppRegistry.registerComponent('whatsappDownloader', () => WhatsappDownloader);
