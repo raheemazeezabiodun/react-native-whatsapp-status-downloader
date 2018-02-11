@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Root } from 'native-base';
 
 import configureStore from './src/stores/configurestore.dev';
-import { MainNavigation } from './src/containers';
+import MainNavigationWithState from './src/containers';
 
 const store = configureStore();
 
@@ -13,7 +13,7 @@ export default class WhatsappDownloader extends Component {
         return (
             <Provider store={store}>
                 <Root>
-                    <MainNavigation />
+                    <MainNavigationWithState />
                 </Root>
             </Provider>
         );

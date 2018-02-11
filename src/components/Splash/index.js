@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { Container, Content, Footer, FooterTab, Button, H1, Text } from 'native-base';
+import { View } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Storage from 'react-native-simple-store';
+
+import * as statusActions from '../../actions/getStatus';
+import { styles } from './styles';
 
 
-export default class Splash extends Component {
+class Splash extends Component {
 
     componentDidMount() {
-        this.props.navigation.navigate('Tab')
+        this.props.statusActions.fecthWhatsappStatus();
+        setTimeout(() => {
+            this.decideNextScreen();
+        }, 1000)
+
     }
+
+    decideNextScreen = () => {
+        Storage.get('introScreenSeen')
+            .then((introScreenSeen) => {
+                if (introScreenSeen) {
+                    this.props.navigation.navigate('AppIntro');
+                } else {
+                    this.props.navigation.navigate('AppIntro');
+                }
+            })
+    };
 
     render() {
         return (
             <Container>
-                <Content>
-                    <Text>
-                        This is Content Section
-                    </Text>
-                </Content>
+                    <View style={styles.container}>
+                        <H1 style={styles.welcome}>
+                            Whatsapp Status Downloader
+                        </H1>
+                    </View>
                 <Footer>
                     <FooterTab>
                         <Button full>
@@ -27,3 +49,18 @@ export default class Splash extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        statusActions: bindActionCreators(statusActions, dispatch)
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Splash);

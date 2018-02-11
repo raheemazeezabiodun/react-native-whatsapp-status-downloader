@@ -1,68 +1,77 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, Image, ImageBackground } from 'react-native';
+import { H1 } from 'native-base';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import Storage from 'react-native-simple-store';
 
-const styles = StyleSheet.create({
-    buttonCircle: {
-        width: 40,
-        height: 40,
-        backgroundColor: 'rgba(0, 0, 0, .2)',
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    image: {
-        width: 320,
-        height: 320,
-    }
-});
+import { styles } from './style';
 
 const slides = [
     {
         key: 'Welcome',
         title: 'Welcome',
-        text: 'Description.\nSay something cool',
+        text: 'This app allows you download whatsapp status without internet connection',
         image: require('../../images/1.jpg'),
-        imageStyle: styles.image,
-        backgroundColor: '#59b2ab',
+        dotColor: '#000'
     },
     {
         key: 'Download',
-        title: 'Save',
-        text: 'Other cool stuff',
-        image: require('../../images/3.jpeg'),
-        imageStyle: styles.image,
-        backgroundColor: '#febe29',
+        title: 'Step 1',
+        text: 'To download any status \n you must have viewed the \n status on whatsapp.',
+        image: require('../../images/2.png'),
     },
     {
-        key: 'Filter',
-        title: 'Filter',
-        text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-        image: require('../../images/1.jpg'),
-        imageStyle: styles.image,
-        backgroundColor: '#22bcb5',
+        key: 'Download2',
+        title: 'Step 2',
+        text: 'After viewing it on whatsapp \n launch this app and the status will be \ available for download',
+        image: require('../../images/3.jpg'),
     },
     {
-        key: 'Voice',
-        title: 'Voice',
-        text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-        image: require('../../images/1.jpg'),
-        imageStyle: styles.image,
-        backgroundColor: '#22bcb5',
+        key: 'Directory',
+        title: 'Folder',
+        text: 'All status are downloaded into Downloads/whatsappStatusDownloader directory.',
+        image: require('../../images/4.jpg'),
     },
     {
         key: 'Voice',
-        title: 'Rocket guy',
-        text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
+        title: 'Accessibility',
+        text: 'You can download with your voice by saying \n Hey, Download all videos\n Hey, Download all images \n ' +
+        'Hey Download All status (this will download both videos and images together)',
+        image: require('../../images/5.jpg'),
+    },
+    {
+        key: 'Credit',
+        title: 'Credit',
+        text: 'This app is built by Raheem Azeez Abiodun (raheezeez4@gmail.com)',
         image: require('../../images/1.jpg'),
-        imageStyle: styles.image,
-        backgroundColor: '#22bcb5',
+    },
+    {
+        key: 'License',
+        title: 'License',
+        text: 'You can share this app with your friends but you are not allowed to sell it or claim ownership',
+        image: require('../../images/2.png'),
     }
 ];
 
 
 export default class IntroSlides extends React.Component {
+
+    _renderItem = (props) => {
+        return (
+            <View>
+                <ImageBackground source={props.image} style={styles.image}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.titleStyle}>{props.title}</Text>
+                    </View>
+                    <View style={styles.descriptionContainer}>
+                        <Text style={styles.descriptionStyle}>{props.text}</Text>
+                    </View>
+                </ImageBackground>
+            </View>
+        )
+    }
+
     _renderNextButton = () => {
         return (
             <View style={styles.buttonCircle}>
@@ -90,13 +99,15 @@ export default class IntroSlides extends React.Component {
     };
 
     _onDone = () => {
+        Storage.save('introScreenSeen', true);
         this.props.navigation.navigate('Tab')
-    }
+    };
 
     render() {
         return (
             <AppIntroSlider
                 slides={slides}
+                renderItem={this._renderItem}
                 renderDoneButton={this._renderDoneButton}
                 renderNextButton={this._renderNextButton}
                 onDone={this._onDone}
