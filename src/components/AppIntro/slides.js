@@ -6,6 +6,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import Storage from 'react-native-simple-store';
 
 import { styles } from './style';
+import { createDirectory } from '../../utils/helpers';
 
 const slides = [
     {
@@ -100,6 +101,7 @@ export default class IntroSlides extends React.Component {
 
     _onDone = () => {
         Storage.save('introScreenSeen', true);
+        createDirectory();
         this.props.navigation.navigate('Tab')
     };
 

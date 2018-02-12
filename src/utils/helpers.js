@@ -48,7 +48,14 @@ export function downloadFiles(file_path, file_name) {
 }
 
 export function createDirectory() {
-    return RNFetchBlob.fs.mkdir(`${getDownloadDirectory()}/${DIRECTORY_NAME}`);
+    RNFetchBlob.fs.isDir(`${getDownloadDirectory()}/${DIRECTORY_NAME}`)
+        .then((exists) => {
+            if (exists) {
+                return `${getDownloadDirectory()}/${DIRECTORY_NAME}`;
+            } else {
+                return RNFetchBlob.fs.mkdir(`${getDownloadDirectory()}/${DIRECTORY_NAME}`);
+            }
+        })
 }
 
 export function createReducer(initialState, reducerMap) {
@@ -56,4 +63,8 @@ export function createReducer(initialState, reducerMap) {
         const reducer = reducerMap[action.type];
         return reducer ? reducer(state, action.payload) : state;
     };
+}
+
+export function getSavedStatus() {
+    
 }
