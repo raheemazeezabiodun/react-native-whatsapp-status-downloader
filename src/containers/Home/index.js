@@ -4,14 +4,10 @@ import { connect } from 'react-redux';
 import { Image, RefreshControl, ListView, View, StyleSheet, Dimensions } from 'react-native';
 import { bindActionCreators } from 'redux';
 import RNFetchBlob from 'react-native-fetch-blob';
-import VideoPlayer from 'react-native-video-player';
-import SpeechAndroid from 'react-native-android-voice';
-import Tts from 'react-native-tts';
 
 import FAB from '../../components/Fab';
 import * as fetchWhatsaappFilesActions from '../../actions/getStatus';
 import * as fetchWhatsappImagesActions from '../../actions/images';
-import * as fetchWhatsappVideosActions from '../../actions/videos';
 import { getWhatsappStatusDirectory, downloadFiles } from '../../utils/helpers';
 import RenderImage from '../../components/RenderImages';
 
@@ -24,25 +20,21 @@ class Index extends Component {
         super(props);
         this.state = {
             dataSource: ds.cloneWithRows([]),
-            videoSource: ds.cloneWithRows([]),
             show: false,
             refreshing: false,
-            images: true,
-            videos: false
+            images: true
         }
     }
 
 
     componentDidMount() {
         this.props.imageActions.getWhatsappImages(this.props.statusFiles.files);
-        this.props.videoActions.getWhatsappVideos(this.props.statusFiles.files);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps && nextProps.statusFiles) {
             this.setState({ 
                 dataSource: ds.cloneWithRows(nextProps.images.files), 
-                videoSource: ds.cloneWithRows(nextProps.videos.files),
                 show: true })
         }
     }
@@ -97,95 +89,10 @@ class Index extends Component {
         return content;
     };
 
-    renderVideoRow = (rowData) => {
-        let dir =  getWhatsappStatusDirectory() + '/'  + rowData;
-        console.log(dir);
-        return (
-            <Card>
-                <CardItem>
-                </CardItem>
-                <CardItem cardBody>
-                <VideoPlayer
-                    endWithThumbnail
-                    thumbnail={{uri: undefined}}
-                    video={{ uri: `file://${dir}` }}
-                    videoWidth={650}
-                    customStyles={{flex: 1, height: 160, width: 550}}
-                    duration={undefined}
-                    ref={r => this.player = r}
-                    />
-                    <Button
-                    onPress={() => this.player.stop()}
-                    title="Stop"
-                    />
-                    <Button
-                    onPress={() => this.player.pause()}
-                    title="Pause"
-                    />
-                    <Button
-                    onPress={() => this.player.resume()}
-                    title="Resume"
-                    />
-                </CardItem>
-                <CardItem>
-                    <Body>
-                    <Button transparent onPress={() => downloadFiles(dir, rowData)}>
-                        <Icon active name="download" size={30} />
-                    </Button>
-                    </Body>
-                </CardItem>
-            </Card>
-        )
-    }
-
-    renderVideoRowData = () => {
-        let content = null;
-        if (this.state.show) {
-            content = (
-                <ListView dataSource={this.state.videoSource}
-                          renderRow={this.renderVideoRow}
-                          enableEmptySections
-                          refreshControl={
-                              <RefreshControl refreshing={this.state.refreshing} onRefresh={this.refreshList} />
-                          }
-                />
-            );
-        } else {
-            content = this.renderEmptyRow();
-        }
-        return content;
-    };
-
-    renderVideoEmptyRow = () => {
-        let content = null;
-        if (this.state.videoSource.length < 1 && this.state.show) {
-            content = (
-                <Text>No Video Found</Text>
-            );
-        }
-        return content;
-    };
-
-    displayImages = () => {
-        this.setState({
-            images: true,
-            video: false
-        })
-    }
-
-    displayVideos = () => {
-        this.setState({
-            images: false,
-            video: true
-        })
-    }
-
-
     render() {
         return (
             <Container>
-                {this.renderRowData()}
-                
+                {this.renderRowData()}                
             </Container>
         );
     }
@@ -194,8 +101,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     return {
         statusFiles: state.whatsappStatus,
-        images: state.images,
-        videos: state.videos
+        images: state.images
     }
 };
 
@@ -203,8 +109,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
         imageActions: bindActionCreators(fetchWhatsappImagesActions, dispatch),
-        actions: bindActionCreators(fetchWhatsaappFilesActions, dispatch),
-        videoActions: bindActionCreators(fetchWhatsappVideosActions, dispatch)
+        actions: bindActionCreators(fetchWhatsaappFilesActions, dispatch)
     }
 };
 
