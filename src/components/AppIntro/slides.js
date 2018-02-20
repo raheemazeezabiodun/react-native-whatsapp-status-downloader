@@ -20,7 +20,7 @@ const slides = [
         key: 'Download',
         title: 'Step 1',
         text: 'To download any status \n you must have viewed the \n status on whatsapp.',
-        image: require('../../images/2.png'),
+        image: require('../../images/2.jpg'),
     },
     {
         key: 'Download2',
