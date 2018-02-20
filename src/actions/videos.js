@@ -14,7 +14,9 @@ export function fetchWhatsappStatusVideosStart() {
 export function fetchWhatsappStatusVideosSuccess(videos) {
     return {
         type: FETCH_WHATSAPP_STATUS_VIDEOS_SUCCESS,
-        videos
+        payload: {
+            videos
+        }
     }
 }
 
@@ -22,5 +24,14 @@ export function fetchWhatsappStatusVideosFail(error) {
     return {
         type: FETCH_WHATSAPP_STATUS_VIDEOS_FAIL,
         error
+    }
+}
+
+export function getWhatsappVideos(statusFiles) {
+    return (dispatch) => {
+        dispatch(fetchWhatsappStatusVideosStart());
+        let videos = statusFiles.filter((elem, index) => elem.endsWith('.mp4'));
+        return dispatch(fetchWhatsappStatusVideosSuccess(videos));
+
     }
 }

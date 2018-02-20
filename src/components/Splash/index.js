@@ -23,7 +23,7 @@ class Splash extends Component {
         Storage.get('introScreenSeen')
             .then((introScreenSeen) => {
                 if (introScreenSeen) {
-                    this.props.navigation.navigate('AppIntro');
+                    this.props.navigation.navigate('Tab');
                 } else {
                     this.props.navigation.navigate('AppIntro');
                 }

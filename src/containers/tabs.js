@@ -3,7 +3,7 @@ import { TabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Index from './Home';
-import Saved from './Saved';
+import Videos from './Home/videos';
 import NotSaved from './NotSaved';
 
 
@@ -11,19 +11,13 @@ export const Tab = TabNavigator({
     Index: {
         screen: Index,
         navigationOptions: ({ navigation }) => ({
-            title: 'Home',
+            title: 'Images',
         }),
     },
-    Saved: {
-        screen: Saved,
+    Videos: {
+        screen: Videos,
         navigationOptions: ({ navigation }) => ({
-            title: 'Saved Status',
-        }),
-    },
-    NotSaved: {
-        screen: NotSaved,
-        navigationOptions: ({ navigation }) => ({
-            title: 'Not Saved Status',
+            title: 'Videos',
         }),
     }
 }, {

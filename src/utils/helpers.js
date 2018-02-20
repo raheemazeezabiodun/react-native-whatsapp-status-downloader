@@ -66,5 +66,5 @@ export function createReducer(initialState, reducerMap) {
 }
 
 export function getSavedStatus() {
-    
+    return `${dirs.DownloadDir}/${DIRECTORY_NAME}`;
 }

@@ -32,6 +32,7 @@ export function fetchWhatsappStatusFilesFail(error) {
 export function fecthWhatsappStatus(){
     return (dispatch => {
         dispatch(fetchWhatsappStatusFilesStart());
+        console.log(getWhatsappStatusDirectory())
         RNFetchBlob.fs.ls(getWhatsappStatusDirectory())
             .then(data => {
                 dispatch(fetchWhatsappStatusFilesSuccess(data))
